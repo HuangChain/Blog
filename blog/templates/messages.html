@@ -1,0 +1,90 @@
+﻿{% extends 'base.html' %}
+{% load staticfiles %}
+{% block custom %}
+<div id="main">
+                <!--contact_page start-->
+                <div class="contact_page">
+                    <!--contact_items start-->
+                    <div class="contact_items">
+                        <!--grey_bar start-->
+                        <div class="grey_bar">
+                            <!--breadcrumbs start-->
+                            <div id="breadcrumbs">
+                                <ul>
+                                    <li><a href="{% url 'home' %}">Home</a></li>
+                                    <li>» </li>
+                                    <li>Message</li>
+                                </ul>
+                            </div>
+                            <!--breadcrumbs end-->
+                            <h2>
+                                留言板
+                            </h2>
+                        </div>
+                        <!--grey_bar end-->
+                        <h2>
+                           历史留言(共{{messages.count}}条)</h2>
+                        <br />
+                        {% for message in messages %}
+                        <p>{{ forloop.revcounter }}.{{message.message}}</p>
+                        <p>{{message.created}}</p>
+                        <div class="Skills_widget_stars"></div>
+                        {% empty %}
+                        <P>还没有留言，抢个沙发～</P>
+                        {% endfor %}
+
+
+                    </div>
+                    <!--contact_items end-->
+                    <!--contact_sidebar end-->
+                    <div class="contact_sidebar">
+                        <!--address start-->
+                           <div class="testformblock">
+                               {{message_form.message}}
+                            <!--<textarea name="message" id="message" style="width:250px;height:200px;" onclick="this.value=''" class="textarea">Message</textarea>-->
+                            <div class="clearfix">
+                            </div>
+                            <br />
+                            <div class="send_btn" id="send-message">
+                                <a href="#">Send</a>
+                            </div>
+                            <img src="images/send_btn.png" id="img-sending" alt="sending message..." />
+                            <div id="mail-send-msg">
+                            </div>
+                        </div>
+                        <!--address end-->
+                        <div class="clearfix">
+                        </div>
+                    </div>
+                    <!--contact_sidebar end-->
+                </div>
+                <!--contact_page end-->
+            </div>
+
+
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"  ></script>
+<script type="text/javascript">
+    $("#send-message").click(function(){
+        var message=$("#id_message").val();
+        $.ajax({
+            url:"{% url 'messages' %}",
+            type:"POST",
+            data:{"message":message},
+            dataType:"JSON",
+            success:function(e){
+                if (e=="1"){
+                    alert("留言已发送，等待管理员审核...");
+                    window.location.reload();
+                }else{
+                     $("textarea[name='message']").attr("placeholder",e.message);
+                }
+            },
+        });
+    });
+
+
+
+</script>
+{% endblock %}
+
+
