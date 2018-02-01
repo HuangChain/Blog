@@ -1,0 +1,93 @@
+﻿{% extends 'base.html' %}
+{% load staticfiles %}
+{% block custom %}
+<div id="main">
+                <!--work_items start-->
+                <div class="work_items">
+                    <div class="grey_bar">
+                        <!--breadcrumbs start-->
+                        <div id="breadcrumbs">
+                            <ul>
+                                <li><a href="{% url 'home' %}">Home</a></li>
+                                <li>» </li> 
+                                <li>Picture</li>
+                            </ul>
+                        </div>
+                        <!--breadcrumbs end-->
+                        {% if request.user.is_authenticated %}
+                        <form action="{% url 'pictures' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="file" name="image" />
+                        <input type="submit" value="上传" />
+                            {{msg}}
+                        </form>
+                        {% else %}
+                        <h2>照片墙</h2>
+                        {% endif %}
+                    </div>
+                    <div class="clearfix">
+                    </div>
+                    <!--work_gallery start-->
+                    <div id="work_gallery">
+                        <!--pro_items start-->
+                        <div class="pro_items">
+                            {% for picture in pictures %}
+                            <a rel="example_group" class="gallery-box nomargingright" href="{{MEDIA_URL}}{{picture.image}}"
+                                title="{{picture.created}}">
+                             <img style="height:151px;width:287px;" alt="" src="{{MEDIA_URL}}{{picture.image}}" /></a>
+                            {% endfor %}
+                        </div>
+
+                        <!--pro_items end-->
+                    </div>
+                        <!--pro_items end-->
+                        <!--pro_items start-->
+                        <!--pro_items end-->
+                        <div class="clearfix">
+                        </div>
+                        <!--pro_items start-->
+                        <!--pro_items end-->
+                        <!--pro_items start-->
+                        <!--pro_items end-->
+                        <!--pro_items start-->
+                        <!--pro_items end-->
+                    </div>
+                    <!--work_gallery end-->
+                </div>
+                <!--work_items end-->
+            </div>
+{% endblock %}
+{% block custom_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'jquery.fancybox-1.3.4/fancybox/jquery.fancybox-1.3.4.css' %}"
+        media="screen" />
+{% endblock %}
+{% block custom_js %}
+<script src="{% static '' %}js/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="{% static 'jquery.fancybox-1.3.4/fancybox/jquery.mousewheel-3.0.4.pack.js' %}"></script>
+<script type="text/javascript" src="{% static 'jquery.fancybox-1.3.4/fancybox/jquery.fancybox-1.3.4.pack.js' %}"></script>
+<script type="text/javascript">
+        $(document).ready(function () {
+
+            $("a[rel=example_group]").fancybox({
+                'transitionIn': 'none',
+                'transitionOut': 'none',
+                'titlePosition': 'over',
+                'titleFormat': function (title, currentArray, currentIndex, currentOpts) {
+                    return '<span id="fancybox-title-over">Image ' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? ' &nbsp; ' + title : '') + '</span>';
+                }
+            });
+
+        });
+
+
+
+</script>
+
+
+
+{% endblock %}
+
+
+
+
+

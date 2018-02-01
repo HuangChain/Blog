@@ -1,0 +1,65 @@
+<html>
+{% load staticfiles %}
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>黄毓森的博客</title>
+    <link href="/static/style/style.css"  rel="stylesheet" />
+    {% block custom_css %}{% endblock %}
+    {% block custom_js %}{% endblock %}
+</head>
+<body>
+    <!--wrapper start-->
+    <div id="wrapper">
+        <!--mainbody start-->
+        <div id="mainbody">
+            <!--navigation start-->
+            <div id="navigation">
+                <div class="nav">
+                    <ul>
+                        {% if request.user.is_authenticated %}
+                        <li>|</li>
+                        <li><a href="{% url 'logout' %}" ><span>Logout</span></a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'verify' %}" {% if request.path|slice:'15' == '/manager/verify' %}class='active'{% endif %}><span>Verify</span></a></li>
+                        <li>|</li>
+                        {% else %}
+                        <li>|</li>
+                        <li><a href="{% url 'login' %}"><span>Login</span></a></li>
+                        {% endif %}
+                        <li><a href="{% url 'messages' %}" {% if request.path|slice:'14' == '/blog/messages' %}class='active'{% endif %}><span>Message</span></a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'publish' %}" {% if request.path|slice:'13' == '/blog/publish' %}class='active'{% endif %}><span>Publish</span></a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'pictures' %}" {% if request.path|slice:'8' == '/picture' %}class='active'{% endif %}><span>Picture</span></a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'articles' %}" {% if request.path|slice:'13' == '/blog/article' %}class='active'{% endif %}><span>Article</span></a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'home' %}" {% if request.path|slice:'10' == '/blog/home' %}class='active'{% endif %}><span>Home</span></a></li>
+
+                    </ul>
+                </div>
+            </div>
+            <!--navigation end-->
+            <!--main start-->
+           {% block custom %} {% endblock %}
+            <!--main end-->
+        </div>
+        <!--mainboty end-->
+    </div>
+    <!--wrapper end-->
+    <div class="clearfix">
+
+    </div>
+    <!--footer start-->
+   <div id="footer">
+        <p>
+            <span><a href="#">Copyright</a> © EGrappler. More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">click here</a> - Rebuild by <a href="#" target="_blank">HCY</a></span>
+        </p>
+        <p>
+            <span>All Rights Reserved.</span></p>
+        <div class="clearfix">
+        </div>
+    </div>
+    <!--footer end-->
+</body>
+</html>

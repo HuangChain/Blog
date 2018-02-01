@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+ {% block custom %}
+<div id="main">
+                <!--about_page start-->
+                <div class="about_page">
+                    <!--about_items start-->
+                    <div class="about_items">
+                        <div class="grey_bar">
+                            <!--breadcrumbs start-->
+                            <div id="breadcrumbs">
+                                <ul>
+                                    <li><a href="{% url 'home' %}">Home</a></li>
+                                    <li>» </li>
+                                    <li>Verify</li>
+                                </ul>
+                            </div>
+                            <!--breadcrumbs end-->
+                            <h2>
+                                留言审核
+                            </h2>
+                        </div>
+                        <br />
+                        {% for message in messages %}
+                        <h2>{{forloop.counter}}.{{message.message}}</h2>
+                        <!--<br/>-->
+                        <P>{{message.created}}
+                        <button type="button" id="pass" onclick="pass_message({{message.id}})">pass</button>
+                        <button type="button" id="refuse" onclick="refuse_message({{message.id}})">refuse</button>
+                        </p>
+
+                        <div class="Skills_widget_stars"></div>
+                        <br />
+                        {% empty %}
+                        <h2>辛苦啦💦没有要审核的留言...</h2>
+                        {% endfor %}
+                    </div>
+                    <!--about_items end-->
+                </div>
+                <!--about_page end-->
+            </div>
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"  ></script>
+<script type="text/javascript">
+
+
+  function pass_message(id){
+      $.ajax({
+            url:"{% url 'verify' %}",
+            type:"POST",
+            data:{"status":1,"id":id},
+            success:window.location.reload(),
+      });
+   }
+
+
+
+ function refuse_message(id){
+      $.ajax({
+            url:"{% url 'verify' %}",
+            type:"POST",
+            data:{"status":3,"id":id},
+            success:function(e){
+                if(e=='1'){
+                    window.location.reload();
+                }else{
+                    alert("审核失败");
+                }
+            },
+      });
+   }
+
+</script>
+ {% endblock %}
+
+
+

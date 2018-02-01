@@ -1,0 +1,92 @@
+﻿{% extends 'base.html' %}
+{% load staticfiles %}
+{% block custom_css %}
+ <link href="/static/style/quake.slider.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block custom_js %}
+<script src="{% static 'js/jquery.min.js' %}" type="text/javascript" ></script>
+<script src="{% static 'js/quake.slider-min.js' %}" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.quake-slider').quake({ thumbnails: false, frameWidth: 600, frameHeight: 609 });
+    });
+</script>
+{% endblock %}
+ {% block custom %}
+ <div id="content">
+                <!--leftsidebar start-->
+                <div id="leftsidebar">
+                    <!--main_tittle start-->
+                    <div class="main_tittle">
+                        <h3>
+                            黄毓森的博客
+                        </h3>
+                    </div>
+                    <!--main_tittle start-->
+                    <div class="clearfix">
+                    </div>
+                    <!--main_desc start-->
+                    <div class="main_desc">
+                        <p>居住地：{{userinfo.address}}</p>
+                        <p>生日：{{userinfo.birthday|date:'m.d'}}</p>
+                        <p>职业：{{userinfo.position}}</p>
+                        <p>邮箱：{{userinfo.user.email}}</p>
+                        <p>爱好：{{userinfo.hobby}}</p>
+                    </div>
+                    <!--main_desc end-->
+                    <div class="clearfix">
+                    </div>
+                    <!--update start-->
+                    <div class="update">
+                        <h2>最近更新</h2>
+                        <br />
+                        {% for blog in blogs %}
+                        <ul>
+                            <li><a href="{% url 'detail' blog.id %}">
+                                {{blog.title}}:{{blog.body|slice:'20'}}</a></li>
+                        </ul>
+                        {% endfor %}
+                    </div>
+                    <div class="copyrights">Collect from <a href="http://www.cssmoban.com/" title="模板之家">模板之家</a></div>
+                    <!--update end-->
+                    <div class="clearfix">
+                    </div>
+                    <!--about start-->
+                    <div class="about">
+                        <h2>
+                            关于</h2>
+                        <br />
+                        <p>我有点任性，爱自由，最大的梦想是去环游世界</p>
+                        <p>我喜欢记录，用文字、用照片</p>
+                        <p>我喜欢分享，分享生活中的点滴给我的朋友、家人</p>
+                        <p>生活有时候需要鸡汤</p>
+                        <p>如果你想给我打call，请点击右上角留言</p>
+                    </div>
+                    <!--about end-->
+                </div>
+                <!--leftsidebar end-->
+                <!--sidebar start-->
+
+                <div id="sidebar">
+                    <div id="slider-wrapper">
+                        <div class="quake-slider">
+                            <div class="quake-slider-images">
+                                <img src="{% static 'images/slider03.jpg' %}" alt="" />
+                                <img src="{% static 'images/slider01.jpg' %}" alt="" />
+                                <img src="{% static 'images/slider04.jpg' %}" alt="" />
+                                <img src="{% static 'images/slider02.jpg' %}" alt="" />
+                                <img src="{% static 'images/slider05.jpg' %}" alt="" />
+                            </div>
+                            <div class="quake-slider-captions">
+                            </div>
+                        </div>
+                        <!--&lt;!&ndash;  <div id="slider" class="nivoSlider">-->
+                            <!--<img src="images/slider04.jpg" alt="" />-->
+                            <!--<img src="images/slider01.jpg" alt="" />-->
+                            <!--<img src="images/slider02.jpg" alt="" />-->
+                            <!--<img src="images/slider03.jpg" alt="" />-->
+                        <!--</div>&ndash;&gt;-->
+                    </div>
+                </div>
+            </div>
+ {% endblock %}
