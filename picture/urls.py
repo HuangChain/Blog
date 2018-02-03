@@ -3,6 +3,6 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^', views.pictures,name='pictures'),
+    url(r'^', views.PictureListView.as_view(), name='pictures'),
 
 ]

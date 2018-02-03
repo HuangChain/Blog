@@ -34,7 +34,8 @@
                            {% if request.user.is_authenticated %}
                             &nbsp;&nbsp;
                             <a name="edit" href="{% url 'edit' article.id %}">编辑</a>
-                            <a name="delete" href="javascript:;" id="delete">删除</a>
+                            <a name="delete" href="{% url 'delete_article' article.id %}" id="delete">删除</a>
+                            <!--<a name="delete" href="javascript:;" id="delete">删除</a>-->
                             <br />
                             {% endif %}
                         </p>
@@ -110,7 +111,7 @@
              url:"{% url 'delete_article' article.id %}",
              type:"POST",
              success:function(e){
-                if(e=='1'){
+                if(e.state=='1'){
                     alert("删除成功，请至博客列表页查看");
                     location.href="{% url 'articles' %}";
                 }else{

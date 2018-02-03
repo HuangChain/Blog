@@ -40,7 +40,7 @@
                     <div class="contact_sidebar">
                         <!--address start-->
                            <div class="testformblock">
-                               {{message_form.message}}
+                               {{form.message}}
                             <!--<textarea name="message" id="message" style="width:250px;height:200px;" onclick="this.value=''" class="textarea">Message</textarea>-->
                             <div class="clearfix">
                             </div>
@@ -72,7 +72,7 @@
             data:{"message":message},
             dataType:"JSON",
             success:function(e){
-                if (e=="1"){
+                if (e.state=="1"){
                     alert("留言已发送，等待管理员审核...");
                     window.location.reload();
                 }else{

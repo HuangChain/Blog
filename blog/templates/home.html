@@ -40,7 +40,7 @@
                     <div class="update">
                         <h2>最近更新</h2>
                         <br />
-                        {% for blog in blogs %}
+                        {% for blog in recent_articles %}
                         <ul>
                             <li><a href="{% url 'detail' blog.id %}">
                                 {{blog.title}}:{{blog.body|slice:'20'}}</a></li>

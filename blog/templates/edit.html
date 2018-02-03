@@ -24,11 +24,11 @@
                         <div class="formblock">
                         </div>
                         <div class="formblock">
-                            {{article_form.title}}
+                            {{form.title}}
                             <!--<input name="name" type="text" id="name" onclick="this.value=''" value="标题" />-->
                         </div>
                         <div class="formblock">
-                            {{article_form.body}}
+                            {{form.body}}
                             <!--<textarea name="message" id="message" cols="" rows="" onclick="this.value=''" class="textarea">内容</textarea>-->
                             <div class="clearfix">
                             </div>
@@ -83,7 +83,7 @@
             data:{"title":title,"body":body},
             dataType:"JSON",
             success:function(e){
-                if (e=="1"){
+                if (e.state=="1"){
                     alert("修改成功，请到博客列表页查看");
                     location.href="{% url 'articles' %}";
                 }else{
